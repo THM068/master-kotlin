@@ -22,7 +22,7 @@ fun main() {
 
 }
 
-sealed interface Expression {
+interface Expression {
 
     fun drive(position: MutableMap<String, Int>): MutableMap<String, Int>
 }
@@ -35,7 +35,6 @@ class ForwardExpression(val forward: Int) : Expression {
         val currentAim = position.getOrDefault("aim", 0)
         position["horizontal"] = current + forward
         position["vertical"] = currentDepth + (currentAim.times(forward))
-        println(position)
         return position
     }
 }
@@ -43,11 +42,8 @@ class ForwardExpression(val forward: Int) : Expression {
 class DownExpression(val down: Int): Expression {
 
     override fun drive(position: MutableMap<String, Int>): MutableMap<String, Int> {
-        val current = position.getOrDefault("vertical", 0)
         val currentAim = position.getOrDefault("aim", 0)
-        //position["vertical"] = current + down
         position["aim"] = currentAim + down
-        println(position)
         return position
     }
 
@@ -56,11 +52,8 @@ class DownExpression(val down: Int): Expression {
 class UpExpression(val up: Int): Expression {
 
     override fun drive(position: MutableMap<String, Int>): MutableMap<String, Int> {
-        val current = position.getOrDefault("vertical", 0)
         val currentAim = position.getOrDefault("aim", 0)
-        //position["vertical"] = current -  up
         position["aim"] = currentAim -  up
-        println(position)
         return position
     }
 }
